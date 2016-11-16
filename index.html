@@ -1,15 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
+<head>
+	<title>Ticketmaster Salesforce Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
+	<link rel="stylesheet" type="text/css" href="css/menu.css">
+	<link rel="stylesheet" type="text/css" href="css/content.css">
+	<link rel="stylesheet" type="text/css" href="css/tablesandcharts.css">
+
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
-  </head>
-  <body class="mixpanel-platform-body">
-    <h1>Hello, World!</h1>
-    <script>
-      // Run queries and display results here
-    </script>
-  </body>
+</head>
+<body class="mixpanel-platform-body mp-dashboard-body">
+	<!-- Left-Hand Menu -->
+	<div class="mp-menu">
+		<div class="mp-menu-header">
+			<img class="logo-ticketmaster" src="assets/ticketmasterlogo.png">
+			<h1 class="mp-menu-header-title">APP METRICS</h1>
+			<hr class="mp-menu-header-divider">
+		</div>
+		<ul class="mp-menu-items">
+			<li id="app-adoption" class="mp-menu-item mp-selected-menu-item">
+				<div class="mp-menu-item-title">APP ADOPTION</div>
+				<hr class="mp-menu-divider">
+			</li>
+			<li id="user-leaderboard" class="mp-menu-item">
+				<div class="mp-menu-item-title">USER LEADERBOARD</div>
+				<hr class="mp-menu-divider">
+			</li>
+			<li id="usage" class="mp-menu-item">
+				<div class="mp-menu-item-title">USAGE: LAST 30 DAYS</div>
+				<hr class="mp-menu-divider">
+			</li>
+		</ul>
+		<div class="mp-menu-footer">
+			<hr class="mp-menu-divider">
+			<img class="logo-mixpanel" src="assets/mplogo.png">
+		</div>
+	</div>
+	<!-- Begin Dashboard Content -->
+	<div class="mp-content">
+		<div class="mp-container mp-grade-container mp-app-adoption">
+			<div class="mp-grade-title">OVERALL APP ADOPTION STATUS</div>
+			<div id="grade-value" class="mp-grade">B</div>
+			<div class="mp-grade-explanation">
+				App adoption is based on active users on more than 2+ applications. Click here to see a specific example of how the scoring works
+			</div>
+		</div>
+		<div class="mp-container mp-table-container mp-app-adoption">
+			<div class="mp-table-title">
+				APP ADOPTION
+				<hr class="mp-shadow">
+			</div>
+			<table class="mp-table mp-table-app-adoption">
+				<tbody id="adoption-table-body">
+					<tr class="mp-table-header">
+						<th class="mp-table-header-item app-name">APP NAME</th>
+						<th class="mp-table-header-item grade">GRADE</th>
+						<th class="mp-table-header-item last-login">LAST LOGIN</th>
+						<th class="mp-table-header-item most-active-user">MOST ACTIVE USER</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="mp-container mp-table-container mp-user-leaderboard hidden">
+			<div class="mp-table-title">
+				USER LEADERBOARD
+				<hr class="mp-shadow">
+			</div>
+			<table class="mp-table mp-table-user-leaderboard">
+				<tbody id="leaderboard-table-body">
+					<tr class="mp-table-header">
+						<th class="mp-table-header-item user-name">USER NAME</th>
+						<th class="mp-table-header-item unique-app-count">UNIQUE APP COUNT</th>
+						<th class="mp-table-header-item total-logins">TOTAL LOGINS</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="mp-container mp-chart-container mp-usage-last-30-days hidden">
+			<div class="mp-chart-header">
+				USAGE: LAST 30 DAYS
+				<hr class="mp-shadow">
+				<div id="usage-dropdown" class="mp-select mp-app-select"></div>
+			</div>
+			<div id="usage-chart" class="mp-chart mp-chart-usage-last-30-days mixpanel-platform-output-line mixpanel-platform-output">
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/menutoggles.js"></script>
+	<script type="text/javascript" src="js/usagecharting.js"></script>
+</body>
 </html>
