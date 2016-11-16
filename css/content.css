@@ -1,1 +1,84 @@
+.mp-content {
+    padding: 20px;
+}
+
+.mp-content, .mp-grade-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.mp-container {
+    border: 1px solid #dfe2ec;
+    border-radius: 4px;
+}
+
+.mp-grade-container {
+    background: #fff;
+    color: #747d94;
+    width: 260px;
+    height: 320px;
+    padding: 19px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.mp-table-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.mp-table-container.mp-app-adoption {
+    width: 458px;
+}
+
+.mp-chart-container, .mp-table-container.mp-user-leaderboard {
+    width: 778px;
+}
+
+.mp-chart-container, .mp-table-container.mp-user-leaderboard {
+    width: 778px;
+}
+
+/* APP ADOPTION CSS */
+.mp-grade-title {
+    line-height: .75rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.mp-grade-explanation, .mp-grade-title {
+    font-size: .75rem;
+    font-family: Open Sans,sans-serif;
+}
+
+.mp-grade {
+    background: #f5f6f8;
+    font-size: 5rem;
+    line-height: 10rem;
+    width: 160px;
+    height: 160px;
+    border: 10px solid #747d94;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    font-family: Open Sans,sans-serif;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+
+.grade-modifier {
+    font-size: 3.8rem;
+    vertical-align: bottom;
+}
+
+.mp-grade-explanation {
+    line-height: 1.125rem;
+    font-weight: 400;
+}
+
+
 

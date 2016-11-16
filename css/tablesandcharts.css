@@ -1,0 +1,202 @@
+/* Table CSS */
+
+.mp-chart-header, .mp-table-title {
+    position: relative;
+    color: #747d94;
+    font-size: .75rem;
+    background: linear-gradient(#ebeefa,#dfe2ec);
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-table-title {
+    height: 49px;
+    line-height: 49px;
+}
+
+.mp-shadow {
+    background: transparent;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+
+.mp-table {
+    border-collapse: separate;
+}
+
+.mp-table-app-adoption {
+    font-size: .625rem;
+}
+
+.mp-table-header-item {
+    background: #f5f6f8;
+    height: 30px;
+    font-size: .6rem;
+    line-height: 29px;
+    text-align: left;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-table-header-item, .mp-table-row-item {
+    padding: 0 10px 0 9px;
+    color: #747d94;
+    border-right: 1px solid #dfe2ec;
+    border-bottom: 1px solid #dfe2ec;
+}
+
+.mp-table-row-item {
+    height: 55px;
+    line-height: 55px;
+    font-family: Open Sans,sans-serif;
+    font-weight: 600;
+}
+
+tr:nth-child(even) td {
+    background: #fff;
+}
+
+tr:nth-child(odd) td {
+    background: #f5f6f8;
+}
+
+.app-name {
+    width: 120px;
+}
+
+.grade {
+    width: 40px;
+}
+
+.last-login {
+    width: 100px;
+}
+
+.most-active-user {
+    width: 120px;
+}
+
+.mp-sf-link {
+    display: inline-block;
+    width: 100%;
+}
+
+.mp-sf-link:active, .mp-sf-link:link, .mp-sf-link:visited {
+    color: #747d94;
+    text-decoration: none;
+}
+
+.mp-sf-link:hover {
+    color: #61adf0;
+}
+
+.mp-table-header th:last-of-type, .mp-table-row td:last-of-type {
+    border-right: 0;
+}
+
+.total-logins, .unique-app-count, .user-name {
+    width: 240px;
+}
+
+/* Chart-specific CSS */
+
+.mp-chart-header {
+    height: 79px;
+    line-height: 79px;
+}
+
+.mp-select, .mp-select.mixpanel-platform-select.event_selector_theme {
+    display: inline-block;
+    width: 200px;
+}
+
+.mp-select {
+    height: 40px;
+}
+
+.mp-app-select {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme .select_button {
+    border: 0;
+    background-color: #fff;
+    background-image: none;
+    text-align: left;
+    height: .875rem;
+    line-height: .875rem;
+    padding: 13px 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme span {
+    font-size: .625rem;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme .down_arrow_big {
+    background-image: url(../assets/downarrow.png);
+    background-size: 10px 7px;
+    top: 16px;
+    right: 15px;
+    width: 10px;
+    height: 7px;
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme .select_button.active .down_arrow_big {
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme .select_menu .options_list .select_option {
+    font-size: .625rem;
+    line-height: .875rem;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-select.mixpanel-platform-select.event_selector_theme .select_menu {
+    width: 200px;
+    min-width: 200px;
+    text-align: left;
+    left: -1px;
+}
+
+/* MPChart CSS */
+
+.highcharts-container {
+    border-radius: 0 0 4px 4px;
+    background: #fbfcfd;
+}
+
+.left_spacer, .mixpanel-platform-chart_header, .mixpanel-platform-multi_selector.filled {
+    display: none;
+}
+
+.mp-chart svg>rect:nth-of-type(2) {
+    stroke: #fbfcfd;
+    rx: 0;
+    ry: 0;
+}
+
+.mp-chart svg>rect:nth-of-type(3) {
+    rx: 0;
+    ry: 0;
+}
+
+.mp-chart svg>path {
+    display: none;
+}

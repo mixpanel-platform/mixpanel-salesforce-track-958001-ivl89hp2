@@ -1,0 +1,86 @@
+.mixpanel-platform-body {
+	padding: 0;
+}
+
+.mixpanel-platform-body {
+    font: 12px/1.4 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    background: #dee3ec;
+    padding: 18px;
+}
+
+.mp-menu {
+    background: #3e506a;
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    height: 400px;
+    vertical-align: top;
+    width: 160px;
+    box-shadow: 1px 0 2px 0 rgba(0,0,0,.2);
+}
+
+.logo-ticketmaster {
+    margin: 20px 20px 10px;
+    width: 100px;
+    height: 14px;
+}
+
+.mp-menu-header {
+    position: relative;
+    font-size: .5rem;
+    line-height: .5rem;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-menu-header-title {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.mp-menu-header-divider {
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #2c3a4d;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    box-shadow: 0 1px 2px 0 rgba(43,58,77,.6);
+}
+
+.mp-menu-item {
+    cursor: pointer;
+}
+
+.mp-menu-item:hover, .mp-selected-menu-item {
+	background: #435773;
+}
+
+.mp-menu-item-title {
+    padding: 25px 20px;
+    font-size: .625rem;
+    line-height: .625rem;
+    font-family: Open Sans,sans-serif;
+    font-weight: 700;
+}
+
+.mp-menu-divider {
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #475c7a;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+
+.mp-menu-footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.logo-mixpanel {
+    display: inline-block;
+    width: 60px;
+    height: 21px;
+    margin: 20px auto;
+}
