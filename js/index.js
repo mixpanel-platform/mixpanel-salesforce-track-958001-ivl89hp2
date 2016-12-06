@@ -98,7 +98,6 @@ function calculateGrade(queryData) {
 
 }
 
-calculateGrade(dummyData);
 
 /*
   Populate Leaderboard Table

@@ -59,7 +59,6 @@ var chartDiv = $('#usage-chart');
 var usageChart;
 
 function populateUsageTable(data) {
-  debugger
   if (!initializedUsage) {
     var usageContainer = $('.mp-usage-last-30-days');
     usageContainer.css('opacity', '0');
@@ -72,8 +71,6 @@ function populateUsageTable(data) {
     usageChart.MPChart('setData', data);
     usageContainer.addClass('hidden');
     usageContainer.css('opacity', '1');
-    
-    // set flag
     initializedUsage = true;
   } else {
      usageChart = $('#usage-chart');
