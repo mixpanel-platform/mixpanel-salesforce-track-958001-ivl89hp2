@@ -60,16 +60,23 @@ var usageChart;
 
 function populateUsageTable(data) {
   debugger
-  var usageContainer = $('.mp-usage-last-30-days');
-  usageContainer.css('opacity', '0');
-  usageContainer.removeClass('hidden');
+  if (!initializedUsage) {
+    var usageContainer = $('.mp-usage-last-30-days');
+    usageContainer.css('opacity', '0');
+    usageContainer.removeClass('hidden');
 
-  usageChart = $('#usage-chart').MPChart({
-    chartType: 'line',
-  })
+    usageChart = $('#usage-chart').MPChart({
+      chartType: 'line',
+    })
 
-  usageChart.MPChart('setData', data);
-  usageContainer.addClass('hidden');
-  usageContainer.css('opacity', '1');
+    usageChart.MPChart('setData', data);
+    usageContainer.addClass('hidden');
+    usageContainer.css('opacity', '1');
+    
+    // set flag
+    initializedUsage = true;
+  } else {
+     usageChart = $('#usage-chart');
+     usageChart.MPChart('setData', data);
+  }
 }
-
