@@ -15,45 +15,45 @@ var selectedCSS = 'mp-selected-menu-item';
 
 
 function showAdoptionTab() {
-	adoptionTabStyle.add(selectedCSS);
-	leaderboardTabStyle.remove(selectedCSS);
-	usageTabStyle.remove(selectedCSS);
+  adoptionTabStyle.add(selectedCSS);
+  leaderboardTabStyle.remove(selectedCSS);
+  usageTabStyle.remove(selectedCSS);
 
-	for (var i = 0; i < adoptionContent.length; i++) {
-		var adoptionElement = adoptionContent[i];
-		adoptionElement.classList.remove('hidden');
-	}
+  for (var i = 0; i < adoptionContent.length; i++) {
+    var adoptionElement = adoptionContent[i];
+    adoptionElement.classList.remove('hidden');
+  }
 
-	leaderboardContent.classList.add('hidden');
-	usageContent.classList.add('hidden');
+  leaderboardContent.classList.add('hidden');
+  usageContent.classList.add('hidden');
 }
 
 function showLeaderboardTab() {
-	adoptionTabStyle.remove(selectedCSS);
-	leaderboardTabStyle.add(selectedCSS);
-	usageTabStyle.remove(selectedCSS);
+  adoptionTabStyle.remove(selectedCSS);
+  leaderboardTabStyle.add(selectedCSS);
+  usageTabStyle.remove(selectedCSS);
 
-	for (var i = 0; i < adoptionContent.length; i++) {
-		var adoptionElement = adoptionContent[i];
-		adoptionElement.classList.add('hidden');
-	}
+  for (var i = 0; i < adoptionContent.length; i++) {
+    var adoptionElement = adoptionContent[i];
+    adoptionElement.classList.add('hidden');
+  }
 
-	leaderboardContent.classList.remove('hidden');
-	usageContent.classList.add('hidden');
+  leaderboardContent.classList.remove('hidden');
+  usageContent.classList.add('hidden');
 }
 
 function showUsageTab() {
-	adoptionTabStyle.remove(selectedCSS);
-	leaderboardTabStyle.remove(selectedCSS);
-	usageTabStyle.add(selectedCSS);
+  adoptionTabStyle.remove(selectedCSS);
+  leaderboardTabStyle.remove(selectedCSS);
+  usageTabStyle.add(selectedCSS);
 
-	for (var i = 0; i < adoptionContent.length; i++) {
-		var adoptionElement = adoptionContent[i];
-		adoptionElement.classList.add('hidden');
-	}
+  for (var i = 0; i < adoptionContent.length; i++) {
+    var adoptionElement = adoptionContent[i];
+    adoptionElement.classList.add('hidden');
+  }
 
-	leaderboardContent.classList.add('hidden');
-	usageContent.classList.remove('hidden');
+  leaderboardContent.classList.add('hidden');
+  usageContent.classList.remove('hidden');
 }
 
 adoptionTab.addEventListener('click', showAdoptionTab);

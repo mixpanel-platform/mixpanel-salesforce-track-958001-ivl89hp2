@@ -1,31 +1,36 @@
 // App Adoption
-var appAdoptionData = [];
+var orgID = getParameterByName("orgid");var appAdoptionData = [];
+var params = { 
+  from: '2015-01-01',
+  to: new Date().toISOString().split('T')[0],
+  orgID: orgID,
+  app: 'Access'
+}
 
-/* 
-	JQL, set appAdoptionData to results,
-	when done run:
-		fillAdoptionTable(appAdoptionData);
-		calculateGrade(appAdoptionData)
-*/
-
+MP.api.jql(appAdoption, params).done(function(results) {
+  appAdoptionData = results
+  fillAdoptionTable(appAdoptionData);
+  calculateGrade(appAdoptionData)
+})
 
 // User Leaderboard
 var leaderboardData = [];
+MP.api.jql(userLeaderboard, params).done(function(results) {
+  leaderboardData = results[0]
+  fillLeaderboardTable(leaderboardData)
+})
 
-/*
-	JQL, set leaderboardData to results,
-	when done run:
-		fillLeaderboardTable(leaderboardData);
-*/
-
-
-// Usage
+// App Usage Leaderboard
 var usageData = {};
+function graphQuery() {
+  MP.api.jql(appUsage, params).done(function(results) {
+    usageData = results[0]
+    populateUsageTable(usageData);
+  })
+}
 
-/*
-	JQL, set usageData to results,
-	when done run:
-		populateUsageTable(usageData);
-
-	ALSO include JQL calls in dropdown onChange logic
-*/
+$('#usage-dropdown').on('change', function(e, selection) {
+  params.app = selection;
+  graphQuery()
+})
+graphQuery()
