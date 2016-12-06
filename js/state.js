@@ -22,6 +22,7 @@ MP.api.jql(userLeaderboard, params).done(function(results) {
 
 // App Usage Leaderboard
 var usageData = {};
+var initializedUsage = false;
 function graphQuery() {
   MP.api.jql(appUsage, params).done(function(results) {
     usageData = results[0]
