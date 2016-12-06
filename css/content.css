@@ -33,6 +33,8 @@
 
 .mp-table-container.mp-app-adoption {
     width: 458px;
+    max-height: 360px;
+    overflow: auto;
 }
 
 .mp-chart-container, .mp-table-container.mp-user-leaderboard {
