@@ -1,13 +1,17 @@
 function main() {
-  function getDay(event) {
-    return new Date(event.time).toISOString().substr(0, 10);
+  function getDay(tuple) {
+    return new Date(tuple.event.time).toISOString().substr(0, 10);
   }
   var from = new Date(new Date(params.to) - (30 * 60 * 60 * 1000 * 24)).toISOString().split('T')[0]
-  return Events({
-    from_date: from,
-    to_date:   params.to,
-    event_selectors: [{event: 'To: App Load', selector: '(properties["App"] == "' + params.app + '")' }]
-  })
+  return join(
+    Events({
+      from_date: from,
+      to_date:   params.to,
+      event_selectors: [{event: 'To: App Load', selector: '(properties["App"] == "' + params.app + '")' }]
+    }),
+    People()
+  )
+  .filter(tuple => tuple.user && tuple.event && tuple.user.properties.salesforceOrgId == params.orgID)
   .groupBy([getDay], mixpanel.reducer.count())
   .reduce((accs, items) => {
     var res = {}
