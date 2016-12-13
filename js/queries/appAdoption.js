@@ -2,7 +2,16 @@ function main() {
 
   recentLoginGrades = { 0: 4, 30: 3, 60: 2, 90: 1, 120: 0 };
   score = { 0: 'F', 1: 'D', 2: 'C', 3: 'B', 4: 'A' };
-
+  apps = [ 'FanBuilder',
+    'Inventory',
+    'Permissions',
+    'Publish',
+    'Reporting',
+    'SalesDeck',
+    'Scaling',
+    'Ticker',
+  ] 
+  appDict = _.object(apps, [1])
   function recentGrading (loginDate) {
     var numDays =  Math.floor((new Date() - loginDate) / ( 60 * 60 * 1000 * 24))
     var tmpGrade
@@ -20,7 +29,7 @@ function main() {
     }),
     People()
   )
-  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.event.properties.Name && tuple.user.properties.salesforceOrgId == params.orgID)
+  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.event.properties.Name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App])
   .groupBy(["event.properties.App"], function(accs, tuples){
     var res = {}
     _.each(tuples, tuple => {

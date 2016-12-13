@@ -4,7 +4,7 @@ var params = {
   from: '2015-01-01',
   to: new Date().toISOString().split('T')[0],
   orgID: orgID,
-  app: 'Access'
+  app: 'FanBuilder'
 }
 
 MP.api.jql(appAdoption, params).done(function(results) {
