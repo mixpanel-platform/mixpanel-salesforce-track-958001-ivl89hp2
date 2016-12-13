@@ -10,8 +10,8 @@ function main() {
     'SalesDeck',
     'Scaling',
     'Ticker',
-  ] 
-  appDict = _.object(apps, [1])
+  ]
+  appDict = _.object(apps, _.map(apps, app => 1))
   function recentGrading (loginDate) {
     var numDays =  Math.floor((new Date() - loginDate) / ( 60 * 60 * 1000 * 24))
     var tmpGrade
