@@ -11,6 +11,19 @@
     display: none!important;
 }
 
+.error-modal-message {
+    border-radius: 5px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 155px;
+    background-color: white;
+    width: 260px;
+    padding: 30px;
+    font-size: 1.5em;
+    font-family: "Source Sans Pro", Helvetica;
+}
+
 .mp-container {
     border: 1px solid #dfe2ec;
     border-radius: 4px;
