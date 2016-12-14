@@ -73,6 +73,7 @@ function calculateGrade(queryData) {
   var gpa = 0;
   for (var j = 0; j < gradeArray.length; j++) {
     var currentGrade = gradeArray[j];
+    if (currentGrade === null || currentGrade === undefined) { continue; }
     gpa += gradeScale[currentGrade];
   }
   gpa = (gpa / gradeArray.length).toPrecision(2);
