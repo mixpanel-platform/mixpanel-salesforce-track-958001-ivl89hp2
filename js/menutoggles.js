@@ -13,6 +13,16 @@ var usageContent = document.getElementsByClassName('mp-usage-last-30-days')[0];
 
 var selectedCSS = 'mp-selected-menu-item';
 
+function hideAllContent() {
+	$('.mp-menu').addClass('hidden');
+
+	for (var i = 0; i < adoptionContent.length; i++) {
+		var adoptionElement = adoptionContent[i];
+		adoptionElement.classList.add('hidden');
+	}
+	leaderboardContent.classList.add('hidden');
+	usageContent.classList.add('hidden');
+}
 
 function showAdoptionTab() {
   adoptionTabStyle.add(selectedCSS);
