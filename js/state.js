@@ -36,11 +36,16 @@ var initializedUsage = false;
 function graphQuery() {
   MP.api.jql(appUsage, params).done(function(results) {
     usageData = results[0]
-    populateUsageTable(usageData);
+    if (usageData === undefined) {
+      $('.usage-chart-modal').removeClass('hidden');
+    } else {
+      populateUsageTable(usageData);
+    }
   })
 }
 
 $('#usage-dropdown').on('change', function(e, selection) {
+  $('.usage-chart-modal').addClass('hidden');
   params.app = selection;
   graphQuery()
 })
