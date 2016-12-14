@@ -8,16 +8,26 @@ var params = {
 }
 
 MP.api.jql(appAdoption, params).done(function(results) {
-  appAdoptionData = results
-  fillAdoptionTable(appAdoptionData);
-  calculateGrade(appAdoptionData)
+  if (results === []) {
+    hideAllContent();
+    showModal();
+  } else {
+    appAdoptionData = results
+    fillAdoptionTable(appAdoptionData);
+    calculateGrade(appAdoptionData)
+  }
 })
 
 // User Leaderboard
 var leaderboardData = [];
 MP.api.jql(userLeaderboard, params).done(function(results) {
-  leaderboardData = results[0]
-  fillLeaderboardTable(leaderboardData)
+  if (results === []) {
+    hideAllContent();
+    showModal();
+  } else {
+    leaderboardData = results[0]
+    fillLeaderboardTable(leaderboardData)
+  }
 })
 
 // App Usage Leaderboard
