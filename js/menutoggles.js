@@ -24,6 +24,10 @@ function hideAllContent() {
 	usageContent.classList.add('hidden');
 }
 
+function showModal() {
+	$('.error-modal-message').removeClass('hidden');	
+}
+
 function showAdoptionTab() {
   adoptionTabStyle.add(selectedCSS);
   leaderboardTabStyle.remove(selectedCSS);
