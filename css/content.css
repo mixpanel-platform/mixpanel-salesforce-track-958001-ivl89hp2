@@ -25,6 +25,19 @@
     font-family: "Source Sans Pro", Helvetica;
 }
 
+.usage-chart-modal {
+    text-align: center;
+    top: 280px;
+    color: #747d94;
+    font-weight: 500;
+    font-size: 1.8em;
+    position: absolute;
+    z-index: 5;
+    width: inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .mp-container {
     border: 1px solid #dfe2ec;
     border-radius: 4px;
