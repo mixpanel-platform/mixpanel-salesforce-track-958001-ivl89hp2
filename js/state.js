@@ -38,9 +38,8 @@ function graphQuery() {
     usageData = results[0]
     if (usageData === undefined) {
       $('.usage-chart-modal').removeClass('hidden');
-    } else {
-      populateUsageTable(usageData);
     }
+    populateUsageTable(usageData);
   })
 }
 
