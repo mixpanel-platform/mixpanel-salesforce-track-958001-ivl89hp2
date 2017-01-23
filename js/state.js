@@ -49,3 +49,7 @@ $('#usage-dropdown').on('change', function(e, selection) {
   graphQuery()
 })
 graphQuery()
+
+function runQueries() {
+  console.log('test'); 
+}
