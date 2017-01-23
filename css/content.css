@@ -27,7 +27,8 @@
 }
 
 .initiation-modal-message:hover {
-    cursor: active;
+    cursor: pointer;
+    font-weight: 600;
     color: #364363;
 }
 
