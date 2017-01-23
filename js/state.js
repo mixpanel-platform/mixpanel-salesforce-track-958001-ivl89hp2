@@ -8,7 +8,7 @@ var params = {
 }
 
 MP.api.jql(appAdoption, params).done(function(results) {
-  if (results === []) {
+  if (results.length === 0) {
     hideAllContent();
     showModal();
   } else {
@@ -21,7 +21,7 @@ MP.api.jql(appAdoption, params).done(function(results) {
 // User Leaderboard
 var leaderboardData = [];
 MP.api.jql(userLeaderboard, params).done(function(results) {
-  if (results === []) {
+  if (results.length === 0) {
     hideAllContent();
     showModal();
   } else {
