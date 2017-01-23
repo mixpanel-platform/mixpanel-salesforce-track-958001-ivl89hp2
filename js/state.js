@@ -58,6 +58,7 @@ $('#usage-dropdown').on('change', function(e, selection) {
 function runQueries() {
   console.log('test');
   $('.initiation-modal').addClass('hidden');
+  showAllContent();
   getAppAdoption();
   getUserLeaderboard();
   graphQuery();
