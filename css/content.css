@@ -11,6 +11,20 @@
     display: none!important;
 }
 
+.initiation-modal-message {
+    border-radius: 5px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 155px;
+    color: #747d94;    
+    background-color: white;
+    width: 260px;
+    padding: 30px;
+    font-size: 1.5em;
+    font-family: "Source Sans Pro", Helvetica;
+}
+
 .error-modal-message {
     border-radius: 5px;
     text-align: center;
