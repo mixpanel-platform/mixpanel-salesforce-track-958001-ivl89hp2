@@ -7,32 +7,38 @@ var params = {
   app: 'FanBuilder'
 }
 
-MP.api.jql(appAdoption, params).done(function(results) {
-  if (results.length === 0) {
-    hideAllContent();
-    showModal();
-  } else {
-    appAdoptionData = results
-    fillAdoptionTable(appAdoptionData);
-    calculateGrade(appAdoptionData)
-  }
-})
+function getAppAdoption() {
+  MP.api.jql(appAdoption, params).done(function(results) {
+    if (results.length === 0) {
+      hideAllContent();
+      showModal();
+    } else {
+      appAdoptionData = results
+      fillAdoptionTable(appAdoptionData);
+      calculateGrade(appAdoptionData)
+    }
+  })
+}
 
 // User Leaderboard
 var leaderboardData = [];
-MP.api.jql(userLeaderboard, params).done(function(results) {
-  if (results.length === 0) {
-    hideAllContent();
-    showModal();
-  } else {
-    leaderboardData = results[0]
-    fillLeaderboardTable(leaderboardData)
-  }
-})
+
+function getUserLeaderboard() {
+  MP.api.jql(userLeaderboard, params).done(function(results) {
+    if (results.length === 0) {
+      hideAllContent();
+      showModal();
+    } else {
+      leaderboardData = results[0]
+      fillLeaderboardTable(leaderboardData)
+    }
+  })
+}
 
 // App Usage Leaderboard
 var usageData = {};
 var initializedUsage = false;
+
 function graphQuery() {
   MP.api.jql(appUsage, params).done(function(results) {
     usageData = results[0]
@@ -48,9 +54,11 @@ $('#usage-dropdown').on('change', function(e, selection) {
   params.app = selection;
   graphQuery()
 })
-graphQuery()
 
 function runQueries() {
   console.log('test');
   $('.initiation-modal').addClass('hidden');
+  getAppAdoption();
+  getUserLeaderboard();
+  graphQuery();
 }
