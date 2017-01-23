@@ -51,5 +51,6 @@ $('#usage-dropdown').on('change', function(e, selection) {
 graphQuery()
 
 function runQueries() {
-  console.log('test'); 
+  console.log('test');
+  $('.initiation-modal').addClass('hidden');
 }
