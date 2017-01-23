@@ -62,3 +62,7 @@ function runQueries() {
   getUserLeaderboard();
   graphQuery();
 }
+
+getAppAdoption();
+getUserLeaderboard();
+graphQuery();
