@@ -24,6 +24,15 @@ function hideAllContent() {
 	usageContent.classList.add('hidden');
 }
 
+function showAllContent() {
+	$('.mp-menu').removeClass('hidden');
+
+	for (var i = 0; i < adoptionContent.length; i++) {
+		var adoptionElement = adoptionContent[i];
+		adoptionElement.classList.remove('hidden');
+	}
+}
+
 function showModal() {
 	$('.error-modal-message').removeClass('hidden');	
 }
