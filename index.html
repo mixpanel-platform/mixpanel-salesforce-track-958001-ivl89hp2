@@ -11,11 +11,18 @@
   <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
 </head>
 <body class="mixpanel-platform-body mp-dashboard-body">
+	
+  <!-- Modals (One to initiate app and one to flag errors) -->
+	<div class="initiation-modal">
+		<div class="initiation-modal-message hidden">
+			<button>Press To Run Queries</button>
+		</div>
+	</div>
 	<div class="error-modal">
 		<div class="error-modal-message hidden">
 			Error: Unable to retrieve data
 		</div>
-	</div>  
+	</div>
   <!-- Left-Hand Menu -->
   <div class="mp-menu">
     <div class="mp-menu-header">
