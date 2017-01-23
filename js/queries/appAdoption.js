@@ -1,5 +1,4 @@
 function main() {
-
   recentLoginGrades = { 0: 4, 30: 3, 60: 2, 90: 1, 120: 0 };
   score = { 0: 'F', 1: 'D', 2: 'C', 3: 'B', 4: 'A' };
   apps = [ 'FanBuilder',
@@ -30,7 +29,7 @@ function main() {
     People()
   )
   .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.event.properties.Name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App])
-  .groupBy(["event.properties.App"], function(accs, tuples){
+    .groupBy(["event.properties.App"], function(accs, tuples){
     var res = {}
     _.each(tuples, tuple => {
       var event = tuple.event
@@ -38,15 +37,24 @@ function main() {
       var name = event.properties.Name
       res[name] = res[name] || {
         lastLogin: event.time,
-        logins: 0,
+        logins: 1,
         salesForceID: salesForceID
       }
 
-      if(res[name].lastLogin < event.time) res[name].lastLogin = event.time
+      if (res[name].lastLogin <= event.time) { res[name].lastLogin = event.time }
       res[name].logins++
     })
     _.each(accs, acc => {
-      res = acc
+      _.each(acc, (v, name) => {
+        res[name] = res[name] || {
+          lastLogin: 0,
+          logins: 0,
+          salesForceID: v['salesForceID']
+        }
+
+        res[name]['lastLogin'] = (res[name]['lastLogin'] < v['lastLogin']) ? v['lastLogin'] : res[name]['lastLogin']
+        res[name]['logins'] += v['logins']
+      })
     })
     return res
   })
@@ -56,12 +64,11 @@ function main() {
     var recentUser = {}
     _.each(app.value, (val, name) => {
       // Is the last login for the active user, or just last login
-      if (val.logins > recentUser.logins || !recentUser.logins) {
+      if (val.lastLogin > recentUser.lastLogin || !recentUser.lastLogin) {
         recentUser.name = name
-        recentUser.logins = val.logins
+        recentUser.logins = recentUser.logins + val.logins || val.logins
         recentUser.salesForceID = val.salesForceID
         recentUser.lastLogin = val.lastLogin
-
       }
     })
     var grade = score[recentGrading(recentUser.lastLogin)]
@@ -70,7 +77,6 @@ function main() {
     res.push(new Date(recentUser.lastLogin).toISOString().split('T')[0])
     res.push({name: recentUser.name, id: recentUser.salesForceID})
     return res
-  });
+  })
 }
-
 appAdoption = main
