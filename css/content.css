@@ -32,6 +32,18 @@
     color: #364363;
 }
 
+.initiation-modal-message:after {
+    width: 4em;
+    height: 0.15em;
+    background-color: #364363;
+    content: '';
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1.2em;    
+}
+
 .error-modal-message {
     border-radius: 5px;
     text-align: center;
