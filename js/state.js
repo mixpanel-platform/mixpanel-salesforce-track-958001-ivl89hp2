@@ -67,3 +67,5 @@ function runQueries() {
 getAppAdoption();
 getUserLeaderboard();
 graphQuery();
+
+hideAllContent();
