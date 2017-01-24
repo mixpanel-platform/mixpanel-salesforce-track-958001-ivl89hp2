@@ -33,14 +33,14 @@
 }
 
 .initiation-modal-message:after {
-    width: 4em;
+    width: 4.2em;
     height: 0.15em;
     background-color: #364363;
     content: '';
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1em;
+    margin-top: 0.7em;
     margin-bottom: 1.2em;    
 }
 
