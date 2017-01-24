@@ -29,7 +29,7 @@
 
 .initiation-modal-message:after {
     width: 0em;
-    height: 0.2em;
+    height: 0.18em;
     background-color: #364363;
     content: '';
     display: block;
@@ -46,7 +46,7 @@
 
 .initiation-modal-message:hover:after {
     width: 5.7em;
-    height: 0.2em;
+    height: 0.18em;
     background-color: #364363;
     content: '';
     display: block;
