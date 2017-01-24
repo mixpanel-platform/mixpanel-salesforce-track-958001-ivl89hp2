@@ -64,8 +64,4 @@ function runQueries() {
   graphQuery();
 }
 
-getAppAdoption();
-getUserLeaderboard();
-graphQuery();
-
 hideAllContent();
