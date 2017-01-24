@@ -33,15 +33,14 @@
 }
 
 .initiation-modal-message:after {
-    width: 4.2em;
-    height: 0.15em;
+    width: 4.5em;
+    height: 0.2em;
     background-color: #364363;
     content: '';
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0.7em;
-    margin-bottom: 1.2em;    
+    margin-top: 0.5em;   
 }
 
 .error-modal-message {
