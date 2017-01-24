@@ -32,7 +32,7 @@
     color: #364363;
 }
 
-.initiation-modal-message:after {
+.initiation-modal-message:hover:after {
     width: 4.7em;
     height: 0.18em;
     background-color: #364363;
