@@ -15,7 +15,7 @@ function main() {
     var numDays =  Math.floor((new Date() - loginDate) / ( 60 * 60 * 1000 * 24))
     var tmpGrade
     _.each(recentLoginGrades, (grade, days) => {
-      if (numDays > days) { tmpGrade = grade }
+      if (numDays >= days) { tmpGrade = grade }
     })
     return tmpGrade
   }
@@ -28,21 +28,23 @@ function main() {
     }),
     People()
   )
-  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.event.properties.Name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App])
-    .groupBy(["event.properties.App"], function(accs, tuples){
+  
+  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App])
+  .groupBy(["event.properties.App"], function(accs, tuples){
     var res = {}
     _.each(tuples, tuple => {
-      var event = tuple.event
-      var salesForceID = tuple.user.properties.salesforceUserId
-      var name = event.properties.Name
+      var event = tuple.event 
+      var userProps = tuple.user.properties
+      var salesForceID = userProps.salesforceUserId 
+      var name = userProps.$name
       res[name] = res[name] || {
         lastLogin: event.time,
         logins: 1,
         salesForceID: salesForceID
       }
-
+      
       if (res[name].lastLogin <= event.time) { res[name].lastLogin = event.time }
-      res[name].logins++
+      res[name].logins++  
     })
     _.each(accs, acc => {
       _.each(acc, (v, name) => {
@@ -51,7 +53,7 @@ function main() {
           logins: 0,
           salesForceID: v['salesForceID']
         }
-
+      
         res[name]['lastLogin'] = (res[name]['lastLogin'] < v['lastLogin']) ? v['lastLogin'] : res[name]['lastLogin']
         res[name]['logins'] += v['logins']
       })
@@ -60,7 +62,7 @@ function main() {
   })
   .map(app => {
     var res = []
-
+    
     var recentUser = {}
     _.each(app.value, (val, name) => {
       // Is the last login for the active user, or just last login
@@ -72,10 +74,7 @@ function main() {
       }
     })
     var grade = score[recentGrading(recentUser.lastLogin)]
-    res.push(app.key[0])
-    res.push(grade)
-    res.push(new Date(recentUser.lastLogin).toISOString().split('T')[0])
-    res.push({name: recentUser.name, id: recentUser.salesForceID})
+    res = [app.key[0], grade, new Date(recentUser.lastLogin).toISOString().split('T')[0], {name: recentUser.name, id: recentUser.salesForceID}]
     return res
   })
 }
