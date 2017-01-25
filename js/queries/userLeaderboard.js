@@ -7,8 +7,8 @@ function main() {
     }),
     People()
   )
-  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.event.properties.Name && tuple.user.properties.salesforceOrgId == params.orgID)
-  .groupByUser(["event.properties.Name","event.properties.App"], (state,events) => {
+  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID)
+  .groupByUser(["user.properties.$name","event.properties.App"], (state,events) => {
     state = state + events.length || events.length
     return state
   })
@@ -24,17 +24,11 @@ function main() {
     })
     return res
   })
-  .reduce((accs, items) => {
-    var res = []
-    _.each(items, item => res.push(item))
-    if (res.length > 5) {
-      _.sortBy(res, obj => obj.value.total)
-    }
-    return res.slice(0,5)
-  })
+  .map(i => ({key: [i.key[0], i.value.unique], value: i.value.total}))
+  .reduce(mixpanel.reducer.top(5))
   .map(arr => {
     var res = []
-    _.each(arr, item => res.push([item.key[0], item.value.unique, item.value.total]))
+    _.each(arr, item => res.push([item.key[0], item.key[1], item.value]))
     return res
   })
 }
