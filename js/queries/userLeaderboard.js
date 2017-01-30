@@ -1,30 +1,32 @@
 function main() {
+  apps = [ 'FanBuilder',
+    'Inventory',
+    'Permissions',
+    'Publish',
+    'Reporting',
+    'SalesDeck',
+    'Scaling',
+    'Ticker',
+  ]
   return join(
     Events({
-      from_date: params.from,
+      from_date: new Date(new Date() - 36e5 * 24 * 30).toISOString().split('T')[0],
       to_date:   params.to,
-      event_selectors: [{event: 'To: App Load'}]
+      event_selectors: _.map(apps, app => ( {event: 'To: App Load', selector: 'properties["App"] == "' + app + '"'} ))
     }),
     People()
   )
   .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID)
-  .groupByUser(["user.properties.$name","event.properties.App"], (state,events) => {
-    state = state + events.length || events.length
+  .groupByUser(["user.properties.$name"], (state, tuples) => {
+    state = state || {total:0, unique:{}}
+    _.each(tuples, t =>{
+      var app = t.event.properties.App
+      state.unique[app] = 1
+      state.total ++ 
+    })
     return state
   })
-  .groupBy(['key.1'], (accs, items) => {
-    var res = {unique: 0}
-    _.each(items, item => {
-      res.unique ++
-      res.total = res.total + item.value || item.value
-    })
-    
-    _.each(accs, acc => {
-      _.each(acc, (v,k) => res[k] = res[k] + v || v)
-    })
-    return res
-  })
-  .map(i => ({key: [i.key[0], i.value.unique], value: i.value.total}))
+  .map(i => ({key: [i.key[1], _.size(i.value.unique)], value: i.value.total}))
   .reduce(mixpanel.reducer.top(5))
   .map(arr => {
     var res = []
