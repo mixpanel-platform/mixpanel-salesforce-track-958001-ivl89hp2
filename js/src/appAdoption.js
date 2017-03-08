@@ -80,4 +80,4 @@ function main() {
     return res
   })
 }
-appAdoption = main
+let appAdoption = main

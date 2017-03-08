@@ -75,4 +75,4 @@ function main() {
     return res;
   });
 }
-appAdoption = main;
+var appAdoption = main;

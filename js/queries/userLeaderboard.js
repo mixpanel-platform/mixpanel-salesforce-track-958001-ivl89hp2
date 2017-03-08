@@ -28,4 +28,4 @@ function main() {
     return res;
   });
 }
-userLeaderboard = main;
+var userLeaderboard = main;

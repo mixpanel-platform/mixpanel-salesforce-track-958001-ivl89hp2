@@ -24,4 +24,4 @@ function main() {
     return { results: item };
   });
 }
-appUsage = main;
+var appUsage = main;

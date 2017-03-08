@@ -23,4 +23,4 @@ function main() {
   })
   .map(item => ({results: item}))
 }
-appUsage = main 
+let appUsage = main 

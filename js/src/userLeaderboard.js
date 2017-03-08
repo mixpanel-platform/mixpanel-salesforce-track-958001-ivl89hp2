@@ -34,4 +34,4 @@ function main() {
     return res
   })
 }
-userLeaderboard = main
+let userLeaderboard = main
