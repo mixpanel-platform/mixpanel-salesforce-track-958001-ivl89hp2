@@ -46,6 +46,21 @@ function fillAdoptionTable(queryData) {
 
 function calculateGrade(queryData) {
   var gradeArray = [];
+  
+  var gradeTuples = [
+    [ 'F', '',  0.0 ],
+    [ 'D', '-', 0.7 ],
+    [ 'D', '',  1.0 ],
+    [ 'D', '+', 1.3 ],
+    [ 'C', '-', 1.7 ],
+    [ 'C', '',  2.0 ],
+    [ 'C', '+', 2.3 ],
+    [ 'B', '-', 2.7 ],
+    [ 'B', '',  3.0 ],
+    [ 'B', '+', 3.3 ],
+    [ 'A', '-', 3.7 ],
+    [ 'A', '',  4.0 ],
+  ]
 
   var gradeScale = {
     'A': 4,
@@ -54,14 +69,6 @@ function calculateGrade(queryData) {
     'D': 1,
     'F': 0
   };
-
-  var numberScale = {
-    '0': 'F',
-    '1': 'D',
-    '2': 'C',
-    '3': 'B',
-    '4': 'A'
-  }
 
   // Gather grades from 2D array
   for (var i = 0; i < queryData.length; i++) {
@@ -78,22 +85,19 @@ function calculateGrade(queryData) {
   }
   gpa = (gpa / gradeArray.length).toPrecision(2);
 
-  // Split gpa into integer & decimal values
-  var digit = gpa.split('.')[0];
-  var decimal = gpa.split('.')[1];
-
-  // Assign grades based on grading scale
   var finalGrade = "";
-  finalGrade += numberScale[digit];
-
   var gradeModifier = document.createElement('span');
   gradeModifier.className = 'grade-modifier'
 
-  if (decimal < 3) {
-    gradeModifier.innerHTML = '-';
-  } else if (decimal > 6) {
-    gradeModifier.innerHTML = '+';
+  // Split gpa into integer & decimal values
+  for(var i = 0; i < gradeTuples.length; i++){
+    var grade = gradeTuples[i]
+    if (gpa >= grade[2]) {
+      finalGrade = grade[0]
+      gradeModifier.innerHTML = grade[1]
+    }
   }
+
   document.getElementById('grade-value').innerHTML = finalGrade;
   document.getElementById('grade-value').appendChild(gradeModifier);
 
