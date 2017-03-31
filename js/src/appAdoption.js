@@ -9,6 +9,7 @@ function main() {
     'SalesDeck',
     'Scaling',
     'Ticker',
+    'Offers',
   ]
   appDict = _.object(apps, _.map(apps, app => 1))
   function recentGrading (loginDate) {

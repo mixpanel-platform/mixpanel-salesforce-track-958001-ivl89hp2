@@ -3,7 +3,7 @@
 function main() {
   recentLoginGrades = { 0: 4, 30: 3, 60: 2, 90: 1, 120: 0 };
   score = { 0: 'F', 1: 'D', 2: 'C', 3: 'B', 4: 'A' };
-  apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker'];
+  apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'];
   appDict = _.object(apps, _.map(apps, function (app) {
     return 1;
   }));

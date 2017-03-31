@@ -83,7 +83,11 @@ function calculateGrade(queryData) {
     if (currentGrade === null || currentGrade === undefined) { continue; }
     gpa += gradeScale[currentGrade];
   }
-  gpa = (gpa / gradeArray.length).toPrecision(2);
+  var numOfApps = gradeArray.length
+  var score = (numOfApps >=5) ? 5 : numOfApps
+  gpa += score - 1
+  numOfApps++
+  gpa = (gpa / numOfApps).toPrecision(2);
 
   var finalGrade = "";
   var gradeModifier = document.createElement('span');
