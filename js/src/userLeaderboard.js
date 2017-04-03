@@ -7,7 +7,7 @@ function main() {
     'SalesDeck',
     'Scaling',
     'Ticker',
-    'Offer',
+    'Offers',
   ]
   return join(
     Events({

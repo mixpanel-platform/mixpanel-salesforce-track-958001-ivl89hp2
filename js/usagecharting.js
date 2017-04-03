@@ -8,6 +8,7 @@
     'SalesDeck',
     'Scaling',
     'Ticker',
+    'Offers',
   ] 
 
 var usageChartOptions = {
