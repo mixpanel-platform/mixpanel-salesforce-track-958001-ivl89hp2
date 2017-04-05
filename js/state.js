@@ -25,13 +25,15 @@ var leaderboardData = [];
 
 function getUserLeaderboard() {
   MP.api.jql(userLeaderboard, params).done(function(results) {
+    /*
     if (results.length === 0) {
       hideAllContent();
       showModal();
     } else {
-      leaderboardData = results[0]
-      fillLeaderboardTable(leaderboardData)
     }
+    */
+    leaderboardData = results[0]
+    fillLeaderboardTable(leaderboardData)
   })
 }
 
