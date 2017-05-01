@@ -4,7 +4,8 @@ var params = {
   from: '2015-01-01',
   to: new Date().toISOString().split('T')[0],
   orgID: orgID,
-  app: 'FanBuilder'
+  app: 'FanBuilder',
+  apps: ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'],
 }
 
 function getAppAdoption() {
@@ -13,7 +14,7 @@ function getAppAdoption() {
       hideAllContent();
       showModal();
     } else {
-      appAdoptionData = results
+      appAdoptionData = results[0]
       fillAdoptionTable(appAdoptionData);
       calculateGrade(appAdoptionData)
     }

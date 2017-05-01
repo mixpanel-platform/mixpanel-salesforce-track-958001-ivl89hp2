@@ -80,7 +80,7 @@ function calculateGrade(queryData) {
   var gpa = 0;
   for (var j = 0; j < gradeArray.length; j++) {
     var currentGrade = gradeArray[j];
-    if (currentGrade === null || currentGrade === undefined) { continue; }
+    if (currentGrade === null || currentGrade === undefined || queryData[j][2] == 'Never Used') { continue; }
     gpa += gradeScale[currentGrade];
   }
   var numOfApps = gradeArray.length

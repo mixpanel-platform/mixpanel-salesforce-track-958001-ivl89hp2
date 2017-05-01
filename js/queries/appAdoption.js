@@ -3,8 +3,8 @@
 function main() {
   recentLoginGrades = { 0: 4, 30: 3, 60: 2, 90: 1, 120: 0 };
   score = { 0: 'F', 1: 'D', 2: 'C', 3: 'B', 4: 'A' };
-  apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'];
-  appDict = _.object(apps, _.map(apps, function (app) {
+
+  appDict = _.object(params.apps, _.map(params.apps, function (app) {
     return 1;
   }));
   function recentGrading(loginDate) {
@@ -17,61 +17,70 @@ function main() {
     });
     return tmpGrade;
   }
-
+  function defaultApps() {
+    res = {};
+    _.each(params.apps, function (app) {
+      res[app] = {
+        lastLogin: 0,
+        logins: 0,
+        salesForceID: null
+      };
+    });
+    return res;
+  }
   return join(Events({
     from_date: params.from,
     to_date: params.to,
     event_selectors: [{ event: 'To: App Load' }]
-  }), People()).filter(function (tuple) {
+  }), People()
+  //add selectors to handle name sfdcorg, etc
+  ).filter(function (tuple) {
     return tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App];
-  }).groupBy(["event.properties.App"], function (accs, tuples) {
-    var res = {};
+  }).groupByUser(function (s, tuples) {
+    s = s || defaultApps();
     _.each(tuples, function (tuple) {
       var event = tuple.event;
+      var app = event.properties.App;
       var userProps = tuple.user.properties;
-      var salesForceID = userProps.salesforceUserId;
-      var name = userProps.$name;
-      res[name] = res[name] || {
-        lastLogin: event.time,
-        logins: 0,
-        salesForceID: salesForceID
-      };
-
-      if (res[name].lastLogin <= event.time) {
-        res[name].lastLogin = event.time;
+      s[app]['salesForceID'] = userProps.salesforceUserId;
+      s[app]['name'] = userProps.$name;
+      if (s[app].lastLogin <= event.time) {
+        s[app].lastLogin = event.time;
       }
-      if (event.time > new Date() - 1000 * 60 * 60 * 24 * 30) res[name].logins++;
+      if (event.time > new Date() - 1000 * 60 * 60 * 24 * 30) s[app].logins++;
+    });
+    return s;
+  }).groupBy([], function (accs, items) {
+    var res = defaultApps();
+    _.each(items, function (item) {
+      _.each(item.value, function (appDict, appName) {
+        if (appDict.lastLogin > res[appName]['lastLogin']) {
+          res[appName] = appDict;
+        }
+      });
     });
     _.each(accs, function (acc) {
-      _.each(acc, function (v, name) {
-        res[name] = res[name] || {
-          lastLogin: 0,
-          logins: 0,
-          salesForceID: v['salesForceID']
-        };
-
-        res[name]['lastLogin'] = res[name]['lastLogin'] < v['lastLogin'] ? v['lastLogin'] : res[name]['lastLogin'];
-        res[name]['logins'] += v['logins'];
+      _.each(acc, function (appDict, appName) {
+        var tmpLogin = res[appName]['lastLogin'];
+        if (res[appName]['logins'] < appDict.logins || !res[appName]['logins'] && appDict.lastLogin > tmpLogin) {
+          res[appName] = appDict;
+        }
+        if (appDict.lastLogin < tmpLogin) {
+          res[appName]['lastLogin'] = tmpLogin;
+        }
       });
     });
     return res;
-  }).map(function (app) {
+  }).map(function (i) {
     var res = [];
-
-    var recentUser = {};
-    var last = 0;
-    _.each(app.value, function (val, name) {
-      // Split this into last login vs Most Active user
-      if (val.lastLogin > last) last = val.lastLogin;
-      if (val.logins > recentUser.logins || !recentUser.logins) {
-        recentUser.name = name;
-        recentUser.logins = val.logins;
-        recentUser.salesForceID = val.salesForceID;
-        recentUser.lastLogin = val.lastLogin;
-      }
+    _.each(i.value, function (appDict, appName) {
+      var grade = score[recentGrading(appDict.lastLogin)];
+      var name = appDict.name || 'Never Used';
+      var id = appDict.salesForceID || 'Never Used';
+      var date = appDict.lastLogin == 0 ? 'Never Used' : new Date(appDict.lastLogin).toLocaleDateString('en-US');
+      var user = { name: name, id: id };
+      res.push([appName, grade, date, user]);
     });
-    var grade = score[recentGrading(last)];
-    res = [app.key[0], grade, new Date(recentUser.lastLogin).toLocaleDateString('en-US'), { name: recentUser.name, id: recentUser.salesForceID }];
     return res;
   });
 }

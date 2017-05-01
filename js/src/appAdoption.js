@@ -1,83 +1,90 @@
 function main() {
   recentLoginGrades = { 0: 4, 30: 3, 60: 2, 90: 1, 120: 0 };
   score = { 0: 'F', 1: 'D', 2: 'C', 3: 'B', 4: 'A' };
-  apps = [ 'FanBuilder',
-    'Inventory',
-    'Permissions',
-    'Publish',
-    'Reporting',
-    'SalesDeck',
-    'Scaling',
-    'Ticker',
-    'Offers',
-  ]
-  appDict = _.object(apps, _.map(apps, app => 1))
-  function recentGrading (loginDate) {
-    var numDays =  Math.floor((new Date() - loginDate) / ( 60 * 60 * 1000 * 24))
-    var tmpGrade
-    _.each(recentLoginGrades, (grade, days) => {
-      if (numDays >= days) { tmpGrade = grade }
-    })
-    return tmpGrade
-  }
 
+  appDict = _.object(params.apps, _.map(params.apps, function (app) {
+    return 1;
+  }));
+  function recentGrading(loginDate) {
+    var numDays = Math.floor((new Date() - loginDate) / (60 * 60 * 1000 * 24));
+    var tmpGrade;
+    _.each(recentLoginGrades, function (grade, days) {
+      if (numDays >= days) {
+        tmpGrade = grade;
+      }
+    });
+    return tmpGrade;
+  }
+  function defaultApps(){
+    res = {}
+    _.each(params.apps, app => {
+      res[app] = { 
+        lastLogin: 0,
+        logins: 0,
+        salesForceID: null,
+      }
+    })
+    return res
+  }
   return join(
     Events({
       from_date: params.from,
-      to_date:   params.to,
-      event_selectors: [{event: 'To: App Load'}]
-    }),
+      to_date: params.to,
+      event_selectors: [{ event: 'To: App Load' }]
+    }), 
     People()
+    //add selectors to handle name sfdcorg, etc
   )
-
-  .filter(tuple => tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App])
-  .groupBy(["event.properties.App"], function(accs, tuples){
-    var res = {}
-    _.each(tuples, tuple => {
-      var event = tuple.event
-      var userProps = tuple.user.properties
-      var salesForceID = userProps.salesforceUserId
-      var name = userProps.$name
-      res[name] = res[name] || {
-        lastLogin: event.time,
-        logins: 0,
-        salesForceID: salesForceID
+  .filter(function (tuple) {
+    return tuple.event && tuple.user && tuple.user.properties.salesforceOrgId && tuple.user.properties.$name && tuple.user.properties.salesforceOrgId == params.orgID && appDict[tuple.event.properties.App];
+  })
+  .groupByUser((s, tuples) => {
+    s = s || defaultApps()
+    _.each(tuples, function (tuple) {
+      var event = tuple.event;
+      var app = event.properties.App
+      var userProps = tuple.user.properties;
+      s[app]['salesForceID'] = userProps.salesforceUserId;
+      s[app]['name'] = userProps.$name;
+      if (s[app].lastLogin <= event.time) {
+        s[app].lastLogin = event.time;
       }
-
-      if (res[name].lastLogin <= event.time) { res[name].lastLogin = event.time }
-      if (event.time > new Date() - 1000 * 60 * 60 * 24 * 30) res[name].logins++
+      if (event.time > new Date() - 1000 * 60 * 60 * 24 * 30) s[app].logins++;
+    })
+    return s
+  })
+  .groupBy([], (accs, items) => {
+    var res = defaultApps()
+    _.each(items, item => {
+      _.each(item.value, (appDict, appName) => {
+        if (appDict.lastLogin > res[appName]['lastLogin']){
+          res[appName] = appDict
+        }
+      })
     })
     _.each(accs, acc => {
-      _.each(acc, (v, name) => {
-        res[name] = res[name] || {
-          lastLogin: 0,
-          logins: 0,
-          salesForceID: v['salesForceID']
+      _.each(acc, (appDict, appName) => {
+        var tmpLogin = res[appName]['lastLogin']
+        if (res[appName]['logins'] < appDict.logins || (!res[appName]['logins'] && appDict.lastLogin > tmpLogin) ) {
+          res[appName] = appDict
         }
-
-        res[name]['lastLogin'] = (res[name]['lastLogin'] < v['lastLogin']) ? v['lastLogin'] : res[name]['lastLogin']
-        res[name]['logins'] += v['logins']
+        if (appDict.lastLogin < tmpLogin){
+          res[appName]['lastLogin'] = tmpLogin
+        }
       })
     })
     return res
   })
-  .map(app => {
+  .map(i => {
     var res = []
-
-    var recentUser = {}
-    var last = 0
-    _.each(app.value, (val, name) => {
-      // Split this into last login vs Most Active user
-      if (val.lastLogin > last) last = val.lastLogin
-      if (val.logins > recentUser.logins || !recentUser.logins) {
-        recentUser.name = name
-        recentUser.logins = val.logins
-        recentUser.salesForceID = val.salesForceID
-        recentUser.lastLogin = val.lastLogin
-      }
+    _.each(i.value, (appDict, appName) =>{
+      var grade = score[recentGrading(appDict.lastLogin)]
+      var name = appDict.name || 'Never Used'
+      var id = appDict.salesForceID || 'Never Used'
+      var date = appDict.lastLogin == 0 ? 'Never Used' : new Date(appDict.lastLogin).toLocaleDateString('en-US')
+      var user = { name, id }
+      res.push([appName, grade, date, user])
     })
-    var grade = score[recentGrading(last)]
-    res = [app.key[0], grade, new Date(recentUser.lastLogin).toLocaleDateString('en-US'), {name: recentUser.name, id: recentUser.salesForceID}]
     return res
   })
 }
