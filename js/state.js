@@ -5,7 +5,7 @@ var params = {
   to: new Date().toISOString().split('T')[0],
   orgID: orgID,
   app: 'FanBuilder',
-  apps: ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'],
+  apps: ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Analytics', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'],
 }
 
 function getAppAdoption() {

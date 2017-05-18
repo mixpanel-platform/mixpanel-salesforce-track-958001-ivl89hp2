@@ -1,19 +1,9 @@
 function main() {
-  apps = [ 'FanBuilder',
-    'Inventory',
-    'Permissions',
-    'Publish',
-    'Reporting',
-    'SalesDeck',
-    'Scaling',
-    'Ticker',
-    'Offers',
-  ]
   return join(
     Events({
       from_date: new Date(new Date() - 36e5 * 24 * 30).toISOString().split('T')[0],
       to_date:   params.to,
-      event_selectors: _.map(apps, app => ( {event: 'To: App Load', selector: 'properties["App"] == "' + app + '"'} ))
+      event_selectors: _.map(params.apps, app => ( {event: 'To: App Load', selector: 'properties["App"] == "' + app + '"'} ))
     }),
     People()
   )
