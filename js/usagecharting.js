@@ -1,16 +1,5 @@
-// get values from dropdowns
-  var apps = [ 
-    'FanBuilder',
-    'Inventory',
-    'Permissions',
-    'Publish',
-    'Reporting',
-    'SalesDeck',
-    'Scaling',
-    'Ticker',
-    'Offers',
-  ] 
-
+//* get values from dropdowns
+var apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Analytics', 'SalesDeck', 'Scaling', 'Ticker', 'Offers']
 var usageChartOptions = {
   items: _.map(apps, function(app) { return {label: app, value:app} })
 }
