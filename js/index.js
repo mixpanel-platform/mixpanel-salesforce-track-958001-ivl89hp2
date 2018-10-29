@@ -1,5 +1,5 @@
 
-/* 
+/*
   Populate 'App Adoption' Table
   Input: 'queryData' - 2D array of table data from a JQL query
 */
@@ -46,7 +46,7 @@ function fillAdoptionTable(queryData) {
 
 function calculateGrade(queryData) {
   var gradeArray = [];
-  
+
   var gradeTuples = [
     [ 'F', '',  0.0 ],
     [ 'D', '-', 0.7 ],

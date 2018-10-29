@@ -2,14 +2,14 @@
 
 function main() {
   apps = [
-    'TM1 Marketing',
+    'Marketing',
     'Inventory',
     'Permissions',
     'Publish',
-    'TM1 Reports',
+    'Reports',
     'SalesDeck', 
     'Scaling', 
-    'TM1 Reports (Mobile App)', 
+    'Reports (Mobile App)', 
     'Offers'];
   return join(Events({
     from_date: new Date(new Date() - 36e5 * 24 * 30).toISOString().split('T')[0],

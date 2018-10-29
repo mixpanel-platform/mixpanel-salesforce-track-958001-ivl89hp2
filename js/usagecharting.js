@@ -1,13 +1,13 @@
 //* get values from dropdowns
 var apps = [
-    'TM1 Marketing',
+    'Marketing',
     'Inventory',
     'Permissions',
     'Publish',
-    'TM1 Reports',
+    'Reports',
     'SalesDeck',
     'Scaling',
-    'TM1 Reports (Mobile App)',
+    'Reports (Mobile App)',
     'Offers'
 ];
 var usageChartOptions = {
