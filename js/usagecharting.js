@@ -1,5 +1,15 @@
 //* get values from dropdowns
-var apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Analytics', 'SalesDeck', 'Scaling', 'Ticker', 'Offers']
+var apps = [
+    'TM1 Marketing',
+    'Inventory',
+    'Permissions',
+    'Publish',
+    'TM1 Reports',
+    'SalesDeck',
+    'Scaling',
+    'TM1 Reports (Mobile App)',
+    'Offers'
+];
 var usageChartOptions = {
   items: _.map(apps, function(app) { return {label: app, value:app} })
 }
