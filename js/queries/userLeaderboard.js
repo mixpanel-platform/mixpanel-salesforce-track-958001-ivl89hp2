@@ -1,7 +1,16 @@
 'use strict';
 
 function main() {
-  apps = ['FanBuilder', 'Inventory', 'Permissions', 'Publish', 'Reporting', 'SalesDeck', 'Scaling', 'Ticker', 'Offers'];
+  apps = [
+    'TM1 Marketing',
+    'Inventory',
+    'Permissions',
+    'Publish',
+    'TM1 Reports',
+    'SalesDeck', 
+    'Scaling', 
+    'TM1 Reports (Mobile App)', 
+    'Offers'];
   return join(Events({
     from_date: new Date(new Date() - 36e5 * 24 * 30).toISOString().split('T')[0],
     to_date: params.to,
