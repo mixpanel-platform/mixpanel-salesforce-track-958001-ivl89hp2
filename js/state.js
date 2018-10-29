@@ -5,7 +5,7 @@ var params = {
   from: '2015-01-01',
   to: new Date().toISOString().split('T')[0],
   orgID: orgID,
-  app: 'FanBuilder',
+  app: 'TM1 Marketing',
   apps: apps
 }
 
